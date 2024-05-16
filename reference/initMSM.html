@@ -59,18 +59,31 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">initMSM</span><span class="op">(</span><span class="va">data</span>, <span class="va">exposure</span>, <span class="va">tv_conf</span>, <span class="va">ti_conf</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">initMSM</span><span class="op">(</span></span>
+<span>  <span class="va">data</span>,</span>
+<span>  <span class="va">exposure</span>,</span>
+<span>  epoch <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">tv_conf</span>,</span>
+<span>  ti_conf <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  concur_conf <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  sep <span class="op">=</span> <span class="st">"[\\._]"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>data</dt>
 <dd><p>data in wide format as: a data frame, list of imputed data
-frames, or mids object</p></dd>
+frames, or <code>mids</code> object from the <code>mice</code> package</p></dd>
 
 
 <dt>exposure</dt>
 <dd><p>names of exposure variables with ".timepoint" suffix</p></dd>
+
+
+<dt>epoch</dt>
+<dd><p>(optional) group set of exposure variables into categories.
+Provide a character vector corresponding to the category for each exposure</p></dd>
 
 
 <dt>tv_conf</dt>
@@ -80,7 +93,19 @@ time-varying exposure variables required here)</p></dd>
 
 
 <dt>ti_conf</dt>
-<dd><p>list of time invariant confounders (at least one required)</p></dd>
+<dd><p>list of time invariant confounders. Can be left as NULL for none.</p></dd>
+
+
+<dt>concur_conf</dt>
+<dd><p>(optional) list of variable names reflecting time-varying
+confounders to retain in formulas contemporaneously (default is none)</p></dd>
+
+
+<dt>sep</dt>
+<dd><p>(optional) The seperator between the variable and the time period. The
+variable names will be split by the last occurance of <code>sep</code> with the
+second string containing the time. This uses regex notation, so <code>.</code> must
+be <code>\\.</code></p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -97,6 +122,41 @@ time-period when the variable is measured and will allow us to properly
 create the formulae (omitting future mediators)</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  A.1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  A.2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  A.3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  B.1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  B.2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  B.3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  D.3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  L.1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">50</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  C   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu">initMSM</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  data <span class="op">=</span> <span class="va">data</span>, exposure <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A.1"</span>, <span class="st">"A.2"</span>, <span class="st">"A.3"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  tv_conf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"B.1"</span>, <span class="st">"B.2"</span>, <span class="st">"B.3"</span>, <span class="st">"D.3"</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>  ti_conf <span class="op">=</span> <span class="st">"C"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">obj</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Exposure (continuous): A.1, A.2, A.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Variable and their encodings:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  var     type time</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  A.1 exposure    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  A.2 exposure    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  A.3 exposure    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  B.1  tv_conf    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  B.2  tv_conf    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  B.3  tv_conf    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  D.3  tv_conf    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    C  ti_conf   -1</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 

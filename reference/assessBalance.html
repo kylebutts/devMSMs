@@ -77,23 +77,31 @@ exposures.</p>
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  save.out <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  home_dir <span class="op">=</span> <span class="cn">NULL</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for devMSM_bal_stats</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="fl">1</span>, t <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for devMSM_bal_stats</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, i <span class="op">=</span> <span class="fl">1</span>, t <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for devMSM_bal_stats</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="fl">1</span>, t <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>data</dt>
 <dd><p>data in wide format as: a data frame, list of imputed data
-frames, or mids object</p></dd>
+frames, or <code>mids</code> object from the <code>mice</code> package</p></dd>
 
 
 <dt>obj</dt>
-<dd><p>initialized MSM object from <code>initMSM</code></p></dd>
+<dd><p>initialized MSM object from <code><a href="initMSM.html">initMSM()</a></code></p></dd>
 
 
 <dt>weights</dt>
-<dd><p>list of IPTW weights output from <code>createWeights</code>,
-required for type 'weighted'</p></dd>
+<dd><p>(optional) list of IPTW weights output from <code><a href="createWeights.html">createWeights()</a></code></p></dd>
 
 
 <dt>balance_thresh</dt>
@@ -108,32 +116,54 @@ confounders, required if two balance thresholds are supplied</p></dd>
 
 
 <dt>verbose</dt>
-<dd><p>(optional) TRUE or FALSE indicator for user output (default is
-TRUE)</p></dd>
+<dd><p>(optional) TRUE or FALSE indicator for printing output to console
+(default is FALSE)</p></dd>
 
 
 <dt>save.out</dt>
 <dd><p>(optional) TRUE or FALSE indicator to save output and
-intermediary output locally (default is TRUE)</p></dd>
+intermediary output locally (default is FALSE)</p></dd>
 
 
 <dt>home_dir</dt>
-<dd><p>(optional) path to home directory
-(required if save.out = TRUE)</p></dd>
+<dd><p>path to home directory (required if save.out = TRUE)</p></dd>
+
+
+<dt>x</dt>
+<dd><p>devMSM_bal_stats object from <code>assessBalance</code></p></dd>
+
+
+<dt>i</dt>
+<dd><p>For multiply imputed datset, <code>i</code> selects which imputation to print results for.
+Default is <code>i = 1</code>. With <code>i = TRUE</code>, all imputed datasets will be looped over.</p></dd>
+
+
+<dt>t</dt>
+<dd><p>Which exposure variable to use. Can either be an index from 1, ..., num exposures or
+a string containing the exposure varaible name (e.g. <code>"A.3"</code>). With <code>t = TRUE</code>, all exposure
+variables will be looped over.</p></dd>
+
+
+<dt>...</dt>
+<dd><p>ignored</p></dd>
+
+
+<dt>object</dt>
+<dd><p>devMSM_bal_stats object from <code>assessBalance()</code></p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>a data frame of balance statistics</p>
+<p>a list containing balance statistics as a dataframe. It is the length
+of the number of datasets (1 for a data.frame or the number of imputed datasets)</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>cobalt package,
-<a href="https://cran.r-project.org/web/packages/cobalt/index.html" class="external-link">https://cran.r-project.org/web/packages/cobalt/index.html</a></p>
-<p>Jackson, 2016 for more on assessing balance for time-varying
-exposures, <a href="https://pubmed.ncbi.nlm.nih.gov/27479649/" class="external-link">https://pubmed.ncbi.nlm.nih.gov/27479649/</a></p></div>
+    <div class="dont-index"><p>cobalt package, <a href="https://cran.r-project.org/web/packages/cobalt/index.html" class="external-link">https://cran.r-project.org/web/packages/cobalt/index.html</a>;
+Jackson, 2016 for more on assessing balance for time-varying exposures,
+<a href="https://pubmed.ncbi.nlm.nih.gov/27479649/" class="external-link">https://pubmed.ncbi.nlm.nih.gov/27479649/</a></p></div>
     </div>
 
     <div class="section level2">
@@ -161,52 +191,69 @@ exposures, <a href="https://pubmed.ncbi.nlm.nih.gov/27479649/" class="external-l
 <span class="r-in"><span><span class="co"># Prebalance</span></span></span>
 <span class="r-in"><span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu">assessBalance</span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span>, obj <span class="op">=</span> <span class="va">obj</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> USER ALERT:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> As shown below, 5 out of 13 (38.5%) covariates across time points remain imbalanced with a remaining median absolute value correlation/std mean difference of 0.20 (range = -0.11 - 0.33):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> +----------+-----------------------+----------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> | Exposure | Total # of covariates | # of imbalanced covariates |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> +==========+=======================+============================+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> | A.1      | 2                     | 0                          |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> +----------+-----------------------+----------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> | A.2      | 4                     | 3                          |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> +----------+-----------------------+----------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> | A.3      | 7                     | 2                          |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> +----------+-----------------------+----------------------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +----------+-----------+---------------+------------+----------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | exposure | covariate | std_bal_stats | bal_thresh | balanced |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +==========+===========+===============+============+==========+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | A.1      | C         |  0.0928       | 0.1        | 1        |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +----------+-----------+---------------+------------+----------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | A.2      | C         |  0.2457       | 0.1        | 0        |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +----------+-----------+---------------+------------+----------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | A.2      | B.1       | -0.0223       | 0.1        | 1        |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +----------+-----------+---------------+------------+----------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | A.2      | A.1       |  0.3289       | 0.1        | 0        |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +----------+-----------+---------------+------------+----------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | A.3      | C         |  0.0321       | 0.1        | 1        |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +----------+-----------+---------------+------------+----------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | A.3      | B.1       | -0.0852       | 0.1        | 1        |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +----------+-----------+---------------+------------+----------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | A.3      | B.2       |  0.2001       | 0.1        | 0        |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +----------+-----------+---------------+------------+----------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | A.3      | A.1       |  0.0468       | 0.1        | 1        |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +----------+-----------+---------------+------------+----------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | A.3      | A.2       | -0.106        | 0.1        | 0        |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +----------+-----------+---------------+------------+----------+</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Table: Imbalanced covariates </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Table: Balance Stats for all Exposure Time Periods </span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># returns list of ggplots for each exposure variable</span></span></span>
-<span class="r-in"><span><span class="va">plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span> </span></span>
+<span class="r-in"><span><span class="co"># returns ggplot of balance stats for all exposure variables</span></span></span>
+<span class="r-in"><span><span class="va">plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">b</span>, t <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># can plot only specific exposure time periods</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">b</span>, t <span class="op">=</span> <span class="st">"A.3"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="assessBalance-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">b</span>, t <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="assessBalance-2.png" alt="" width="700" height="433"></span>
-<span class="r-plt img"><img src="assessBalance-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="va">plots</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></span>
-<span class="r-plt img"><img src="assessBalance-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="va">plots</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span></span>
-<span class="r-plt img"><img src="assessBalance-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="va">plots</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span></span></span>
-<span class="r-plt img"><img src="assessBalance-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Weighted</span></span></span>
 <span class="r-in"><span><span class="va">w</span> <span class="op">&lt;-</span> <span class="fu"><a href="createWeights.html">createWeights</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span>, obj <span class="op">=</span> <span class="va">obj</span>, formulas <span class="op">=</span> <span class="va">f</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">bw</span> <span class="op">&lt;-</span> <span class="fu">assessBalance</span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span>, obj <span class="op">=</span> <span class="va">obj</span>, weights <span class="op">=</span> <span class="va">w</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">bw</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> USER ALERT: Using `glm` weighting method:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> As shown below, 4 out of 13 (30.8%) covariates across time points remain imbalanced with a remaining median absolute value correlation/std mean difference of 0.11 (range = -0.11 - 0.15):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> +----------+-----------------------+----------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> | Exposure | Total # of covariates | # of imbalanced covariates |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> +==========+=======================+============================+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> | A.1      | 2                     | 0                          |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> +----------+-----------------------+----------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> | A.2      | 4                     | 2                          |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> +----------+-----------------------+----------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> | A.3      | 7                     | 2                          |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> +----------+-----------------------+----------------------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +----------+-----------+---------------+------------+----------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | exposure | covariate | std_bal_stats | bal_thresh | balanced |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +==========+===========+===============+============+==========+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | A.1      | C         | -0.0445       | 0.1        | 1        |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +----------+-----------+---------------+------------+----------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | A.2      | C         |  0.049        | 0.1        | 1        |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +----------+-----------+---------------+------------+----------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | A.2      | B.1       | -0.1034       | 0.1        | 0        |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +----------+-----------+---------------+------------+----------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | A.2      | A.1       |  0.1557       | 0.1        | 0        |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +----------+-----------+---------------+------------+----------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | A.3      | C         | -0.056        | 0.1        | 1        |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +----------+-----------+---------------+------------+----------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | A.3      | B.1       | -0.1114       | 0.1        | 0        |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +----------+-----------+---------------+------------+----------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | A.3      | B.2       |  0.0971       | 0.1        | 1        |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +----------+-----------+---------------+------------+----------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | A.3      | A.1       |  0.0133       | 0.1        | 1        |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +----------+-----------+---------------+------------+----------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | A.3      | A.2       | -0.0794       | 0.1        | 1        |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +----------+-----------+---------------+------------+----------+</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Table: Imbalanced Covariates using `glm` </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Table: Balance Stats for all Exposure Time Periods </span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">bw</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="assessBalance-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

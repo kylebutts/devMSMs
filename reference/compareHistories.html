@@ -69,56 +69,55 @@ plotting results.</p>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">compareHistories</span><span class="op">(</span></span>
-<span>  <span class="va">home_dir</span>,</span>
-<span>  <span class="va">exposure</span>,</span>
-<span>  <span class="va">exposure_time_pts</span>,</span>
-<span>  <span class="va">outcome</span>,</span>
-<span>  <span class="va">model</span>,</span>
-<span>  epochs <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  hi_lo_cut <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">obj</span>,</span>
+<span>  <span class="va">fit</span>,</span>
+<span>  hi_lo_cut <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0.6</span><span class="op">)</span>,</span>
+<span>  dose_level <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"h"</span>, <span class="st">"l"</span><span class="op">)</span>,</span>
 <span>  reference <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  comparison <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  mc_comp_method <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>  dose_level <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>  exp_lab <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>  out_lab <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>  colors <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  save.out <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span>  mc_comp_method <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/stats/p.adjust.html" class="external-link">p.adjust.methods</a></span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  save.out <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">home_dir</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for devMSM_comparisons</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for devMSM_comparisons</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  colors <span class="op">=</span> <span class="st">"Dark2"</span>,</span>
+<span>  exp_lab <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  out_lab <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  save.out <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  home_dir <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for devMSM_comparisons</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"preds"</span>, <span class="st">"comps"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>home_dir</dt>
-<dd><p>path to home directory (required if 'save.out' = TRUE)</p></dd>
+    <dl><dt>obj</dt>
+<dd><p>initialized MSM object from <code><a href="initMSM.html">initMSM()</a></code></p></dd>
 
 
-<dt>exposure</dt>
-<dd><p>name of exposure variable</p></dd>
-
-
-<dt>exposure_time_pts</dt>
-<dd><p>list of integers at which weights will be
-created/assessed that correspond to time points when exposure wass measured</p></dd>
-
-
-<dt>outcome</dt>
-<dd><p>name of outcome variable with ".timepoint" suffix</p></dd>
-
-
-<dt>model</dt>
-<dd><p>list of model outputs from fitModel()</p></dd>
-
-
-<dt>epochs</dt>
-<dd><p>(optional) data frame of exposure epoch labels and values</p></dd>
+<dt>fit</dt>
+<dd><p>list of model outputs from <code><a href="fitModel.html">fitModel()</a></code></p></dd>
 
 
 <dt>hi_lo_cut</dt>
 <dd><p>(optional) list of two numbers indicating quantile values
 that reflect high and low values, respectively, for continuous exposure
 (default is median split)</p></dd>
+
+
+<dt>dose_level</dt>
+<dd><p>(optional) "l" or "h" indicating whether low or high doses
+should be tallied in tables and plots (default is high "h")</p></dd>
 
 
 <dt>reference</dt>
@@ -139,9 +138,31 @@ comparison correction method for stats::p.adjust, default is
 Benjamini-Hochburg ("BH")</p></dd>
 
 
-<dt>dose_level</dt>
-<dd><p>(optional) "l" or "h" indicating whether low or high doses
-should be tallied in tables and plots (default is high "h")</p></dd>
+<dt>verbose</dt>
+<dd><p>(optional) TRUE or FALSE indicator for printing output to console
+(default is FALSE)</p></dd>
+
+
+<dt>save.out</dt>
+<dd><p>(optional) TRUE or FALSE indicator to save output and
+intermediary output locally (default is FALSE)</p></dd>
+
+
+<dt>home_dir</dt>
+<dd><p>path to home directory (required if save.out = TRUE)</p></dd>
+
+
+<dt>x</dt>
+<dd><p>devMSM_histories object from <code>compareHistories()</code></p></dd>
+
+
+<dt>...</dt>
+<dd><p>ignored</p></dd>
+
+
+<dt>colors</dt>
+<dd><p>(optional) character specifying Brewer palette or list of
+colors (n(epochs)+1) for plotting (default is "Dark2" palette)</p></dd>
 
 
 <dt>exp_lab</dt>
@@ -154,41 +175,318 @@ should be tallied in tables and plots (default is high "h")</p></dd>
 (default is variable name)</p></dd>
 
 
-<dt>colors</dt>
-<dd><p>(optional) character specifying Brewer palette or list of
-colors (n(epochs)+1) for plotting (default is "Dark2" palette)</p></dd>
+<dt>object</dt>
+<dd><p>devMSM_histories object from <code>compareHistories()</code></p></dd>
 
 
-<dt>verbose</dt>
-<dd><p>(optional) TRUE or FALSE indicator for user output (default is
-TRUE)</p></dd>
-
-
-<dt>save.out</dt>
-<dd><p>(optional) TRUE or FALSE indicator to save output and
-intermediary output locally (default is TRUE)</p></dd>
+<dt>type</dt>
+<dd><p>Either "preds" or "comps" corresponding to the
+results of <code><a href="https://marginaleffects.com/man/predictions.html" class="external-link">marginaleffects::avg_predictions()</a></code> at low and high dosages or
+<code><a href="https://marginaleffects.com/man/comparisons.html" class="external-link">marginaleffects::comparisons()</a></code> respectively</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>data frame of history comparisons</p>
+<p>list containing two dataframes: <code>preds</code> with predictions from
+<code><a href="https://marginaleffects.com/man/predictions.html" class="external-link">marginaleffects::avg_predictions()</a></code> containing average expected outcome
+for different exposure histories and <code>comps</code> with contrasts from
+<code><a href="https://marginaleffects.com/man/comparisons.html" class="external-link">marginaleffects::comparisons()</a></code> comparing different exposure history</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="https://marginaleffects.com/man/predictions.html" class="external-link">marginaleffects::avg_predictions()</a></code>,
-<a href="https://cran.r-project.org/web/packages/marginaleffects/marginaleffects.pdf" class="external-link">https://cran.r-project.org/web/packages/marginaleffects/marginaleffects.pdf</a></p>
-<p><code><a href="https://marginaleffects.com/man/hypotheses.html" class="external-link">marginaleffects::hypotheses()</a></code>,
-<a href="https://cran.r-project.org/web/packages/marginaleffects/marginaleffects.pdf" class="external-link">https://cran.r-project.org/web/packages/marginaleffects/marginaleffects.pdf</a></p>
-<p><code><a href="https://rdrr.io/r/stats/p.adjust.html" class="external-link">stats::p.adjust()</a></code>,
-<a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/p.adjust" class="external-link">https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/p.adjust</a></p></div>
+<a href="https://cran.r-project.org/web/packages/marginaleffects/marginaleffects.pdf" class="external-link">https://cran.r-project.org/web/packages/marginaleffects/marginaleffects.pdf</a>;
+<code><a href="https://marginaleffects.com/man/hypotheses.html" class="external-link">marginaleffects::hypotheses()</a></code>,
+<a href="https://cran.r-project.org/web/packages/marginaleffects/marginaleffects.pdf" class="external-link">https://cran.r-project.org/web/packages/marginaleffects/marginaleffects.pdf</a>;
+<code><a href="https://rdrr.io/r/stats/p.adjust.html" class="external-link">stats::p.adjust()</a></code>,
+<a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/p.adjust" class="external-link">https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/p.adjust</a>;</p></div>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="st">"tbd"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "tbd"</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://istallworthy.github.io/devMSMs/">devMSMs</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  ID <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">50</span>,</span></span>
+<span class="r-in"><span>  A.1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  A.2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  A.3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  B.1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  B.2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  B.3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  C <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  D.3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="initMSM.html">initMSM</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">data</span>,</span></span>
+<span class="r-in"><span>  exposure <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A.1"</span>, <span class="st">"A.2"</span>, <span class="st">"A.3"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  ti_conf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"C"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  tv_conf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"B.1"</span>, <span class="st">"B.2"</span>, <span class="st">"B.3"</span>, <span class="st">"D.3"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="createFormulas.html">createFormulas</a></span><span class="op">(</span><span class="va">obj</span>, type <span class="op">=</span> <span class="st">"short"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">w</span> <span class="op">&lt;-</span> <span class="fu"><a href="createWeights.html">createWeights</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span>, obj <span class="op">=</span> <span class="va">obj</span>, formulas <span class="op">=</span> <span class="va">f</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="fitModel.html">fitModel</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  data <span class="op">=</span> <span class="va">data</span>, obj <span class="op">=</span> <span class="va">obj</span>, weights <span class="op">=</span> <span class="va">w</span>, </span></span>
+<span class="r-in"><span>  outcome <span class="op">=</span> <span class="st">"D.3"</span>, model <span class="op">=</span> <span class="st">"m0"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">comp</span> <span class="op">=</span> <span class="fu">compareHistories</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">obj</span>, fit <span class="op">=</span> <span class="va">fit</span>,</span></span>
+<span class="r-in"><span>  hi_lo_cut <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0.6</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">comp</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Summary of Exposure Main Effects:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> USER ALERT: Out of the total of 50 individuals in the sample, below is the distribution of the 50 (100%) individuals that fall into 8 user-selected exposure histories (out of the 8 total) created from 60th and 30th percentile values for low and high levels of exposure-epoch A.1, A.2, A.3. </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> USER ALERT: Please inspect the distribution of the sample across the following exposure histories and ensure there is sufficient spread to avoid extrapolation and low precision:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +---------------+---+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | epoch_history | n |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +===============+===+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | h-h-h         | 8 |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +---------------+---+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | h-h-l         | 4 |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +---------------+---+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | h-l-h         | 6 |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +---------------+---+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | h-l-l         | 7 |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +---------------+---+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | l-h-h         | 6 |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +---------------+---+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | l-h-l         | 7 |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +---------------+---+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | l-l-h         | 5 |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +---------------+---+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | l-l-l         | 7 |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +---------------+---+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Table: Summary of user-selected exposure histories based on exposure main effects A.1, A.2, A.3: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Below are the pooled average predictions by user-specified history:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------+-------+-------+--------+----------+-----------+---------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | term  | A.1   | A.2   | A.3    | estimate | std.error | p.value |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +=======+=======+=======+========+==========+===========+=========+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | l-l-l | -0.6  | -0.66 | -0.667 | -0.081   | 0.2       | 0.68    |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------+-------+-------+--------+----------+-----------+---------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | l-l-h | -0.6  | -0.66 |  0.039 |  0.032   | 0.17      | 0.85    |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------+-------+-------+--------+----------+-----------+---------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | l-h-l | -0.6  |  0.24 | -0.667 | -0.156   | 0.18      | 0.39    |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------+-------+-------+--------+----------+-----------+---------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | l-h-h | -0.6  |  0.24 |  0.039 | -0.043   | 0.14      | 0.76    |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------+-------+-------+--------+----------+-----------+---------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | h-l-l |  0.13 | -0.66 | -0.667 | -0.056   | 0.19      | 0.77    |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------+-------+-------+--------+----------+-----------+---------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | h-l-h |  0.13 | -0.66 |  0.039 |  0.057   | 0.18      | 0.74    |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------+-------+-------+--------+----------+-----------+---------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | h-h-l |  0.13 |  0.24 | -0.667 | -0.13    | 0.18      | 0.46    |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------+-------+-------+--------+----------+-----------+---------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | h-h-h |  0.13 |  0.24 |  0.039 | -0.017   | 0.15      | 0.91    |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------+-------+-------+--------+----------+-----------+---------+ </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Conducting multiple comparison correction for all pairings between comparison histories and each refernece history using the holm method. </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+------------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | term              | estimate    | std.error  | p.value   | p.value_corr |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +===================+=============+============+===========+==============+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (l-l-l) - (l-l-h) | -0.11315771 | 0.09475554 | 0.2323971 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+------------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (l-l-l) - (l-h-l) |  0.07457778 | 0.12560794 | 0.5526896 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+------------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (l-l-l) - (l-h-h) | -0.03857993 | 0.14802421 | 0.7943759 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+------------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (l-l-l) - (h-l-l) | -0.02572135 | 0.11271907 | 0.8194986 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+------------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (l-l-l) - (h-l-h) | -0.13887906 | 0.16605288 | 0.4029555 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+------------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (l-l-l) - (h-h-l) |  0.04885643 | 0.17419041 | 0.7791115 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+------------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (l-l-l) - (h-h-h) | -0.06430129 | 0.20582874 | 0.7547351 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+------------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (l-l-h) - (l-h-l) |  0.18773549 | 0.16613478 | 0.2584681 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+------------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (l-l-h) - (l-h-h) |  0.07457778 | 0.12560794 | 0.5526896 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+------------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (l-l-h) - (h-l-l) |  0.08743636 | 0.12567753 | 0.4866043 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+------------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (l-l-h) - (h-l-h) | -0.02572135 | 0.11271907 | 0.8194986 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+------------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (l-l-h) - (h-h-l) |  0.16201414 | 0.19046351 | 0.3949744 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+------------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (l-l-h) - (h-h-h) |  0.04885643 | 0.17419040 | 0.7791115 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+------------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (l-h-l) - (l-h-h) | -0.11315771 | 0.09475553 | 0.2323970 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+------------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (l-h-l) - (h-l-l) | -0.10029913 | 0.16316737 | 0.5387523 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+------------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (l-h-l) - (h-l-h) | -0.21345684 | 0.21056201 | 0.3107030 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+------------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (l-h-l) - (h-h-l) | -0.02572135 | 0.11271907 | 0.8194986 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+------------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (l-h-l) - (h-h-h) | -0.13887906 | 0.16605289 | 0.4029556 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+------------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (l-h-h) - (h-l-l) |  0.01285858 | 0.16391475 | 0.9374727 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+------------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (l-h-h) - (h-l-h) | -0.10029913 | 0.16316737 | 0.5387523 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+------------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (l-h-h) - (h-h-l) |  0.08743636 | 0.12567754 | 0.4866043 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+------------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (l-h-h) - (h-h-h) | -0.02572135 | 0.11271908 | 0.8194986 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+------------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (h-l-l) - (h-l-h) | -0.11315771 | 0.09475554 | 0.2323971 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+------------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (h-l-l) - (h-h-l) |  0.07457778 | 0.12560794 | 0.5526896 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+------------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (h-l-l) - (h-h-h) | -0.03857993 | 0.14802421 | 0.7943759 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+------------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (h-l-h) - (h-h-l) |  0.18773549 | 0.16613478 | 0.2584681 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+------------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (h-l-h) - (h-h-h) |  0.07457778 | 0.12560794 | 0.5526896 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+------------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (h-h-l) - (h-h-h) | -0.11315771 | 0.09475553 | 0.2323971 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+------------+-----------+--------------+ </span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">comp</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="compareHistories-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">comp</span>, <span class="st">"preds"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    term        A.1        A.2         A.3    estimate std.error  statistic</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 l-l-l -0.6049775 -0.6609111 -0.66725269 -0.08140449 0.1997103 -0.4076128</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 l-l-h -0.6049775 -0.6609111  0.03889876  0.03175323 0.1709179  0.1857805</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 l-h-l -0.6049775  0.2360764 -0.66725269 -0.15598226 0.1822728 -0.8557625</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 l-h-h -0.6049775  0.2360764  0.03889876 -0.04282455 0.1403828 -0.3050556</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 h-l-l  0.1269727 -0.6609111 -0.66725269 -0.05568313 0.1886474 -0.2951704</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 h-l-h  0.1269727 -0.6609111  0.03889876  0.05747458 0.1755162  0.3274602</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 h-h-l  0.1269727  0.2360764 -0.66725269 -0.13026091 0.1754605 -0.7423946</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8 h-h-h  0.1269727  0.2360764  0.03889876 -0.01710320 0.1521830 -0.1123857</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     p.value   s.value   conf.low conf.high dose</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.6835579 0.5488644 -0.4728295 0.3100205    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.8526169 0.2300305 -0.3032398 0.3667462    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.3921292 1.3505991 -0.5132305 0.2012660    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.7603238 0.3953141 -0.3179697 0.2323206    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.7678637 0.3810778 -0.4254253 0.3140590    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.7433198 0.4279450 -0.2865309 0.4014800    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 0.4578483 1.1270585 -0.4741571 0.2136353    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8 0.9105176 0.1352412 -0.3153764 0.2811700    3</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">comp</span>, <span class="st">"comps"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 term    estimate  std.error   statistic   p.value    s.value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  (l-l-l) - (l-l-h) -0.11315771 0.09475554 -1.19420687 0.2323971 2.10533631</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  (l-l-l) - (l-h-l)  0.07457778 0.12560794  0.59373459 0.5526896 0.85545851</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  (l-l-l) - (l-h-h) -0.03857993 0.14802421 -0.26063259 0.7943759 0.33210633</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  (l-l-l) - (h-l-l) -0.02572135 0.11271907 -0.22818988 0.8194986 0.28718656</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  (l-l-l) - (h-l-h) -0.13887906 0.16605288 -0.83635443 0.4029555 1.31130743</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  (l-l-l) - (h-h-l)  0.04885643 0.17419041  0.28047713 0.7791115 0.36009835</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  (l-l-l) - (h-h-h) -0.06430129 0.20582874 -0.31240189 0.7547351 0.40595769</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  (l-l-h) - (l-h-l)  0.18773549 0.16613478  1.13001922 0.2584681 1.95194172</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  (l-l-h) - (l-h-h)  0.07457778 0.12560794  0.59373460 0.5526896 0.85545853</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 (l-l-h) - (h-l-l)  0.08743636 0.12567753  0.69571990 0.4866043 1.03917914</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 (l-l-h) - (h-l-h) -0.02572135 0.11271907 -0.22818989 0.8194986 0.28718657</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 (l-l-h) - (h-h-l)  0.16201414 0.19046351  0.85063085 0.3949744 1.34016877</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 (l-l-h) - (h-h-h)  0.04885643 0.17419040  0.28047714 0.7791115 0.36009835</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 (l-h-l) - (l-h-h) -0.11315771 0.09475553 -1.19420690 0.2323970 2.10533637</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 (l-h-l) - (h-l-l) -0.10029913 0.16316737 -0.61470091 0.5387523 0.89230608</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 (l-h-l) - (h-l-h) -0.21345684 0.21056201 -1.01374812 0.3107030 1.68639213</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 (l-h-l) - (h-h-l) -0.02572135 0.11271907 -0.22818988 0.8194986 0.28718656</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 (l-h-l) - (h-h-h) -0.13887906 0.16605289 -0.83635441 0.4029556 1.31130739</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 (l-h-h) - (h-l-l)  0.01285858 0.16391475  0.07844676 0.9374727 0.09315145</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 (l-h-h) - (h-l-h) -0.10029913 0.16316737 -0.61470091 0.5387523 0.89230608</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 (l-h-h) - (h-h-l)  0.08743636 0.12567754  0.69571987 0.4866043 1.03917910</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22 (l-h-h) - (h-h-h) -0.02572135 0.11271908 -0.22818987 0.8194986 0.28718655</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23 (h-l-l) - (h-l-h) -0.11315771 0.09475554 -1.19420687 0.2323971 2.10533630</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24 (h-l-l) - (h-h-l)  0.07457778 0.12560794  0.59373459 0.5526896 0.85545852</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25 (h-l-l) - (h-h-h) -0.03857993 0.14802421 -0.26063259 0.7943759 0.33210632</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26 (h-l-h) - (h-h-l)  0.18773549 0.16613478  1.13001921 0.2584681 1.95194170</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27 (h-l-h) - (h-h-h)  0.07457778 0.12560794  0.59373459 0.5526896 0.85545852</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28 (h-h-l) - (h-h-h) -0.11315771 0.09475553 -1.19420688 0.2323971 2.10533633</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      conf.low  conf.high  dose p.value_corr</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  -0.2988751 0.07255973 0 - 1            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  -0.1716093 0.32076482 0 - 1            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  -0.3287021 0.25154219 0 - 2            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  -0.2466467 0.19520397 0 - 1            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  -0.4643367 0.18657860 0 - 2            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  -0.2925505 0.39026335 0 - 2            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  -0.4677182 0.33911563 0 - 3            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  -0.1378827 0.51335367 1 - 1            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  -0.1716093 0.32076481 1 - 2            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 -0.1588871 0.33375980 1 - 1            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 -0.2466467 0.19520396 1 - 2            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 -0.2112875 0.53531576 1 - 2            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 -0.2925505 0.39026334 1 - 3            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 -0.2988751 0.07255972 1 - 2            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 -0.4201013 0.21950304 1 - 1            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 -0.6261508 0.19923711 1 - 2            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 -0.2466467 0.19520397 1 - 2            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 -0.4643367 0.18657861 1 - 3            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 -0.3084084 0.33412559 2 - 1            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 -0.4201013 0.21950304 2 - 2            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 -0.1588871 0.33375980 2 - 2            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22 -0.2466467 0.19520398 2 - 3            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23 -0.2988751 0.07255973 1 - 2            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24 -0.1716093 0.32076481 1 - 2            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25 -0.3287021 0.25154219 1 - 3            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26 -0.1378827 0.51335367 2 - 2            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27 -0.1716093 0.32076481 2 - 3            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28 -0.2988751 0.07255972 2 - 3            1</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">comp2</span> <span class="op">=</span> <span class="fu">compareHistories</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">obj</span>, fit <span class="op">=</span> <span class="va">fit</span>, </span></span>
+<span class="r-in"><span>  reference <span class="op">=</span> <span class="st">"l-l-l"</span>,</span></span>
+<span class="r-in"><span>  comparison <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"h-h-h"</span>, <span class="st">"h-h-l"</span><span class="op">)</span> </span></span>
+<span class="r-in"><span><span class="op">)</span> </span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">comp2</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Summary of Exposure Main Effects:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> USER ALERT: Out of the total of 50 individuals in the sample, below is the distribution of the 19 (38%) individuals that fall into 3 user-selected exposure histories (out of the 8 total) created from 60th and 30th percentile values for low and high levels of exposure-epoch A.1, A.2, A.3. </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> USER ALERT: Please inspect the distribution of the sample across the following exposure histories and ensure there is sufficient spread to avoid extrapolation and low precision:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +---------------+---+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | epoch_history | n |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +===============+===+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | h-h-h         | 8 |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +---------------+---+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | h-h-l         | 4 |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +---------------+---+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | l-l-l         | 7 |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +---------------+---+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Table: Summary of user-selected exposure histories based on exposure main effects A.1, A.2, A.3: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Below are the pooled average predictions by user-specified history:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------+-------+-------+--------+----------+-----------+---------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | term  | A.1   | A.2   | A.3    | estimate | std.error | p.value |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +=======+=======+=======+========+==========+===========+=========+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | l-l-l | -0.6  | -0.66 | -0.667 | -0.081   | 0.2       | 0.68    |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------+-------+-------+--------+----------+-----------+---------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | h-h-l |  0.13 |  0.24 | -0.667 | -0.13    | 0.18      | 0.46    |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------+-------+-------+--------+----------+-----------+---------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | h-h-h |  0.13 |  0.24 |  0.039 | -0.017   | 0.15      | 0.91    |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------+-------+-------+--------+----------+-----------+---------+ </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Conducting multiple comparison correction for all pairings between comparison histories and each refernece history using the holm method. </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+-----------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | term              | estimate    | std.error | p.value   | p.value_corr |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +===================+=============+===========+===========+==============+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (h-h-h) - (l-l-l) | -0.06595963 | 0.2789104 | 0.8130522 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+-----------+-----------+--------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | (h-h-l) - (l-l-l) | -0.06595963 | 0.2789104 | 0.8130522 | 1            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +-------------------+-------------+-----------+-----------+--------------+ </span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">comp2</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="compareHistories-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">comp2</span>, <span class="st">"preds"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    term        A.1        A.2         A.3    estimate std.error  statistic</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 l-l-l -0.6049775 -0.6609111 -0.66725269 -0.08140449 0.1997103 -0.4076128</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 h-h-l  0.1269727  0.2360764 -0.66725269 -0.13026091 0.1754605 -0.7423946</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8 h-h-h  0.1269727  0.2360764  0.03889876 -0.01710320 0.1521830 -0.1123857</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     p.value   s.value   conf.low conf.high dose</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.6835579 0.5488644 -0.4728295 0.3100205    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 0.4578483 1.1270585 -0.4741571 0.2136353    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8 0.9105176 0.1352412 -0.3153764 0.2811700    3</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">comp2</span>, <span class="st">"comps"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                term    estimate std.error  statistic   p.value   s.value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 (h-h-h) - (l-l-l) -0.06595963 0.2789104 -0.2364904 0.8130522 0.2985802</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 (h-h-l) - (l-l-l) -0.06595963 0.2789104 -0.2364904 0.8130522 0.2985802</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     conf.low conf.high  dose p.value_corr</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 -0.6126139 0.4806947 3 - 0            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -0.6126139 0.4806947 2 - 0            1</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

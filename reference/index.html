@@ -80,7 +80,7 @@
 
       <dl><dt>
           
-          <code><a href="createFormulas.html">createFormulas()</a></code> 
+          <code><a href="createFormulas.html">createFormulas()</a></code> <code><a href="createFormulas.html">print(<i>&lt;devMSM_formulas&gt;</i>)</a></code> 
         </dt>
         <dd>Create balancing formulas</dd>
       </dl></div><div class="section level2">
@@ -96,25 +96,14 @@
 
       <dl><dt>
           
-          <code><a href="createWeights.html">createWeights()</a></code> 
+          <code><a href="createWeights.html">createWeights()</a></code> <code><a href="createWeights.html">print(<i>&lt;devMSM_weights&gt;</i>)</a></code> <code><a href="createWeights.html">plot(<i>&lt;devMSM_weights&gt;</i>)</a></code> 
         </dt>
         <dd>Creates IPTW balancing weights</dd>
-      </dl></div><div class="section level2">
-      <h2 id="trim-iptw-balancing-weights-if-needed-">Trim IPTW balancing weights (if needed)<a class="anchor" aria-label="anchor" href="#trim-iptw-balancing-weights-if-needed-"></a></h2>
-      
-      <div class="section-desc"><p>Trims IPTW balancing weights with heavy right tails by populating all weight values above a given quantile with the weight value of that quantile.</p></div>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
+      </dl><dl><dt>
           
           <code><a href="trimWeights.html">trimWeights()</a></code> 
         </dt>
-        <dd>Trim IPTW balancing weights</dd>
+        <dd>Trim IPTW balancing weights, if needed</dd>
       </dl></div><div class="section level2">
       <h2 id="assess-balance">Assess balance<a class="anchor" aria-label="anchor" href="#assess-balance"></a></h2>
       
@@ -128,7 +117,7 @@
 
       <dl><dt>
           
-          <code><a href="assessBalance.html">assessBalance()</a></code> 
+          <code><a href="assessBalance.html">assessBalance()</a></code> <code><a href="assessBalance.html">print(<i>&lt;devMSM_bal_stats&gt;</i>)</a></code> <code><a href="assessBalance.html">summary(<i>&lt;devMSM_bal_stats&gt;</i>)</a></code> <code><a href="assessBalance.html">plot(<i>&lt;devMSM_bal_stats&gt;</i>)</a></code> 
         </dt>
         <dd>Assesses confounder balancing</dd>
       </dl></div><div class="section level2">
@@ -144,7 +133,7 @@
 
       <dl><dt>
           
-          <code><a href="fitModel.html">fitModel()</a></code> 
+          <code><a href="fitModel.html">fitModel()</a></code> <code><a href="fitModel.html">print(<i>&lt;devMSM_models&gt;</i>)</a></code> 
         </dt>
         <dd>Fit outcome model</dd>
       </dl></div><div class="section level2">
@@ -160,97 +149,9 @@
 
       <dl><dt>
           
-          <code><a href="compareHistories.html">compareHistories()</a></code> 
+          <code><a href="compareHistories.html">compareHistories()</a></code> <code><a href="compareHistories.html">print(<i>&lt;devMSM_comparisons&gt;</i>)</a></code> <code><a href="compareHistories.html">plot(<i>&lt;devMSM_comparisons&gt;</i>)</a></code> <code><a href="compareHistories.html">summary(<i>&lt;devMSM_comparisons&gt;</i>)</a></code> 
         </dt>
         <dd>Estimate, compare, and visualize exposure histories</dd>
-      </dl></div><div class="section level2">
-      <h2 id="helper-functions-assessbalance-">Helper functions (<code>assessBalance</code>)<a class="anchor" aria-label="anchor" href="#helper-functions-assessbalance-"></a></h2>
-      
-      
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="calcBalStats.html">calcBalStats()</a></code> 
-        </dt>
-        <dd>Calculate balance stats based on Jackson paper</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_love_plot.html">make_love_plot()</a></code> 
-        </dt>
-        <dd>Create love plots showing balancing statistics</dd>
-      </dl></div><div class="section level2">
-      <h2 id="helper-functions-fitmodel-">Helper functions (<code>fitModel</code>)<a class="anchor" aria-label="anchor" href="#helper-functions-fitmodel-"></a></h2>
-      
-      
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="getModel.html">getModel()</a></code> 
-        </dt>
-        <dd>Fits outcome model</dd>
-      </dl></div><div class="section level2">
-      <h2 id="helper-functions-comparehistories-">Helper functions (<code>compareHistories</code>)<a class="anchor" aria-label="anchor" href="#helper-functions-comparehistories-"></a></h2>
-      
-      
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="add_dose.html">add_dose()</a></code> 
-        </dt>
-        <dd>Add dose tally to table</dd>
-      </dl><dl><dt>
-          
-          <code><a href="add_histories.html">add_histories()</a></code> 
-        </dt>
-        <dd>Add history labels to table</dd>
-      </dl><dl><dt>
-          
-          <code><a href="create_custom_comparisons.html">create_custom_comparisons()</a></code> 
-        </dt>
-        <dd>Creates custom comparisons</dd>
-      </dl><dl><dt>
-          
-          <code><a href="create_custom_contrasts.html">create_custom_contrasts()</a></code> 
-        </dt>
-        <dd>Create custom contrasts</dd>
-      </dl><dl><dt>
-          
-          <code><a href="eval_hist.html">eval_hist()</a></code> 
-        </dt>
-        <dd>Visualize distribution of sample across exposure histories</dd>
-      </dl><dl><dt>
-          
-          <code><a href="get_comparison_values.html">get_comparison_values()</a></code> 
-        </dt>
-        <dd>Finds custom comparison values</dd>
-      </dl><dl><dt>
-          
-          <code><a href="get_reference_values.html">get_reference_values()</a></code> 
-        </dt>
-        <dd>Finds custom reference values</dd>
-      </dl><dl><dt>
-          
-          <code><a href="perform_multiple_comparison_correction.html">perform_multiple_comparison_correction()</a></code> 
-        </dt>
-        <dd>Conduct multiple comparison correction</dd>
       </dl></div><div class="section level2">
       <h2 id="example-simulated-datasets">Example simulated datasets<a class="anchor" aria-label="anchor" href="#example-simulated-datasets"></a></h2>
       
